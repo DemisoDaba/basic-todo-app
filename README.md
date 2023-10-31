@@ -36,14 +36,14 @@ Follow these instructions to get a copy of the project up and running on your lo
 
 1. Clone the repository to your local machine.
 
-   ```bash
-   git clone https://github.com/your-username/to-do-list-app.git
-
+```
+git clone https://github.com/your-username/to-do-list-app.git
+```
 2. Navigate to the project directory.
 
-  ```
+```
 cd to-do-list-app
-  ```
+```
 3. Create and activate a virtual environment (optional but recommended).
 
 ```
@@ -69,9 +69,6 @@ http://localhost:5000
 Register an account and start managing your tasks.
 
 Enjoy using the "To-Do List Application"!
-
-
-# To-Do List Application
 
 ## Project Idea
 
@@ -107,17 +104,9 @@ To get started with the "To-Do List Application" project, follow the instruction
 
 ## Acknowledgments
 
-* You can acknowledge any contributors, libraries, or resources you used in your project here.
+**
 
 Happy coding!
-
-
-
-
-
-
-
-
 
 ## LICENSE
 
