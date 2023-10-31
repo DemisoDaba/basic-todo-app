@@ -5,16 +5,10 @@
 </head>
 <body>
     <h1>Edit Task</h1>
-    <form method="POST" action="/tasks/edit/{{ task.id }}">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="{{ task.title }}" required>
-        <br>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" required>{{ task.description }}</textarea>
-        <br>
-        <!-- Add more input fields for other task attributes -->
-        <input type="submit" value="Save Changes">
+    <form method="POST">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" required value="{{ task.title }}">
+        <button type="submit">Save</button>
     </form>
 </body>
 </html>
-
