@@ -1,8 +1,9 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-
-# Make sure that Flask knows where to find your templates folder.
-app.template_folder = '../templates'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///your_database.db'
+db = SQLAlchemy(app)
 
 from app import routes
+
