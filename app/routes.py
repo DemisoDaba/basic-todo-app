@@ -17,3 +17,4 @@ def list_tasks():
 @app.route('/tasks/new', methods=['GET', 'POST'])
 def create_task():
     # ... (your other route definitions)
+
