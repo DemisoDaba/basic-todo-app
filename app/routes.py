@@ -3,7 +3,7 @@ from app.models import Task
 from flask import render_template, request, redirect, flash
 
 # List Tasks
-@app.route('/tasks')
+@app.route('/tasks', methods=['GET'])
 def list_tasks():
     tasks = Task.query.all()  # Retrieve tasks from the database (if using a database)
     return render_template('task_list.html', tasks=tasks)
@@ -28,7 +28,7 @@ def create_task():
     return render_template('create_task.html')
 
 # Mark a Task as Complete
-@app.route('/tasks/complete/<int:task_id>')
+@app.route('/tasks/complete/<int:task_id>', methods=['GET'])
 def complete_task(task_id):
     task = Task.query.get(task_id)  # Retrieve the task by its ID
     task.completed = True  # Update the task's completion status
