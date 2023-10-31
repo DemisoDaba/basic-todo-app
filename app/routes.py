@@ -23,3 +23,4 @@ def tasks():
 
     tasks = Task.query.all()  # Retrieve tasks from the database (if using a database)
     return render_template('task_list.html', tasks=tasks)
+
