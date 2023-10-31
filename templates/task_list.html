@@ -4,13 +4,12 @@
     <title>Task List</title>
 </head>
 <body>
-    <h1>Task List</h1>
+    <h1>Your Tasks</h1>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.title }}</li>
+            <li><a href="{{ url_for('edit_task', id=task.id) }}">{{ task.title }}</a></li>
         {% endfor %}
     </ul>
-    <p><a href="/tasks/new">Create New Task</a></p>
+    <a href="{{ url_for('create_task') }}">Create Task</a>
 </body>
 </html>
-
