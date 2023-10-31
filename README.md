@@ -105,10 +105,6 @@ To get started with the "To-Do List Application" project, follow the instruction
 3. Start implementing the project features based on your role and preferences.
 4. Don't forget to include a LICENSE file to specify the licensing terms for your project.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE) - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 * You can acknowledge any contributors, libraries, or resources you used in your project here.
