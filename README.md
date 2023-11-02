@@ -39,7 +39,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 1. Clone the repository to your local machine.
 
 ```
-git clone https://github.com/your-username/to-do-list-app.git
+git clone https://github.com/DemisoDaba/to-do-list-app.git
 ```
 2. Navigate to the project directory.
 
