@@ -1,21 +1,32 @@
+# .gitignore
+
+# Virtual Environment
+venv/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
 *.pyo
-__init__.py
+*.pyd
 
-# Local data
-db.sqlite3
+# IDE-specific files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.idea/
 
-# Compiled source
-*.com
-*.class
-*.dll
-*.exe
-*.o
+# Compiled Python files
+*.pyc
+
+# Compiled C extension
 *.so
 
-# Logs and databases
-*.log
-*.sql
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+*.egg
+
+# macOS
+.DS_Store
 
