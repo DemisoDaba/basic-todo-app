@@ -3,82 +3,101 @@
 document.addEventListener('DOMContentLoaded', function() {
     // DOMContentLoaded ensures that the script runs after the HTML has been completely loaded
 
+    // Function to fetch tasks from the backend and update the task list
+    function fetchTasks() {
+        fetch('/get_tasks')
+            .then(response => response.json())
+            .then(data => {
+                const taskList = document.querySelector('.task-list');
+                taskList.innerHTML = ''; // Clear existing tasks
+
+                // Iterate through tasks and create task items
+                data.tasks.forEach(task => {
+                    const newTaskItem = document.createElement('li');
+                    newTaskItem.classList.add('task-item');
+                    newTaskItem.innerHTML = `
+                        <span>${task.title}</span>
+                        <button class="edit-btn" data-id="${task.id}">Edit</button>
+                        <button class="delete-btn" data-id="${task.id}">Delete</button>
+                    `;
+                    taskList.appendChild(newTaskItem);
+                });
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Fetch tasks when the page loads
+    fetchTasks();
+
     // Example: Add a task when the form is submitted
     const form = document.querySelector('form');
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault();
 
-        // Get task input values
         const taskInput = document.getElementById('task');
-        const descriptionInput = document.getElementById('description');
-        const dueDateInput = document.getElementById('dueDate');
-        const priorityInput = document.getElementById('priority');
-
         const taskText = taskInput.value.trim();
-        const descriptionText = descriptionInput.value.trim();
-        const dueDateText = dueDateInput.value;
-        const priorityText = priorityInput.value;
 
-        // Check if the task text is not empty
         if (taskText !== '') {
-            // Create a new task item
-            const taskList = document.querySelector('.task-list');
-            const newTaskItem = document.createElement('li');
-            newTaskItem.classList.add('task-item');
-            newTaskItem.innerHTML = `
-                <span>${taskText}</span>
-                <span>Description: ${descriptionText}</span>
-                <span>Due Date: ${dueDateText}</span>
-                <span>Priority: ${priorityText}</span>
-                <button>Edit</button>
-                <button>Delete</button>
-            `;
-
-            // Append the new task item to the task list
-            taskList.appendChild(newTaskItem);
-
-            // Clear the task input
-            taskInput.value = '';
-            descriptionInput.value = '';
-            dueDateInput.value = '';
-            priorityInput.value = 'low'; // Set default priority
+            // Use AJAX to send a request to the backend to create a task
+            fetch('/create_task', {
+                method: 'POST',
+                body: new URLSearchParams({ 'title': taskText }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // Fetch and update tasks after creating a new task
+                fetchTasks();
+                // Clear the task input
+                taskInput.value = '';
+            })
+            .catch(error => console.error('Error:', error));
         }
     });
 
     // Example: Edit a task when the edit button is clicked
     document.addEventListener('click', function(event) {
-        if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Edit') {
-            const taskItem = event.target.closest('.task-item');
-            if (taskItem) {
-                // Implement logic for editing task details
-                const taskText = taskItem.querySelector('span').textContent;
-                const descriptionText = taskItem.querySelector('span:nth-child(2)').textContent;
-                const dueDateText = taskItem.querySelector('span:nth-child(3)').textContent;
-                const priorityText = taskItem.querySelector('span:nth-child(4)').textContent;
-
-                // Use prompt or modal for user input
-                const newTaskText = prompt('Edit Task:', taskText);
-                const newDescriptionText = prompt('Edit Description:', descriptionText);
-                const newDueDateText = prompt('Edit Due Date:', dueDateText);
-                const newPriorityText = prompt('Edit Priority:', priorityText);
-
-                if (newTaskText !== null) {
-                    taskItem.querySelector('span').textContent = newTaskText;
-                    taskItem.querySelector('span:nth-child(2)').textContent = `Description: ${newDescriptionText}`;
-                    taskItem.querySelector('span:nth-child(3)').textContent = `Due Date: ${newDueDateText}`;
-                    taskItem.querySelector('span:nth-child(4)').textContent = `Priority: ${newPriorityText}`;
-                }
+        if (event.target.classList.contains('edit-btn')) {
+            const taskId = event.target.dataset.id;
+            const taskText = prompt('Edit Task:');
+            if (taskText !== null) {
+                // Use AJAX to send a request to the backend to edit a task
+                fetch(`/edit_task/${taskId}`, {
+                    method: 'PUT',
+                    body: new URLSearchParams({ 'title': taskText }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    // Fetch and update tasks after editing a task
+                    fetchTasks();
+                })
+                .catch(error => console.error('Error:', error));
             }
         }
     });
 
     // Example: Delete a task when the delete button is clicked
     document.addEventListener('click', function(event) {
-        if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Delete') {
-            const taskItem = event.target.closest('.task-item');
-            if (taskItem) {
-                taskItem.remove();
-            }
+        if (event.target.classList.contains('delete-btn')) {
+            const taskId = event.target.dataset.id;
+            // Use AJAX to send a request to the backend to delete a task
+            fetch(`/delete_task/${taskId}`, {
+                method: 'DELETE',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                // Fetch and update tasks after deleting a task
+                fetchTasks();
+            })
+            .catch(error => console.error('Error:', error));
         }
     });
 });
