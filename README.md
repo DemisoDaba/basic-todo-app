@@ -1,6 +1,6 @@
 ![image](https://github.com/DemisoDaba/to-do-list-app/assets/125874545/33f7aea1-2516-4dac-940d-a5f7f9741784)
 
-# To-Do List Application
+# basic-todo-app
 
 ## Overview
 
@@ -39,18 +39,18 @@ Follow these instructions to get a copy of the project up and running on your lo
 1. Clone the repository to your local machine.
 
 ```
-git clone https://github.com/DemisoDaba/to-do-list-app.git
+git clone https://github.com/DemisoDaba/basic-todo-app.git
 ```
 2. Navigate to the project directory.
 
 ```
-cd to-do-list-app
+cd basic-todo-app
 ```
 3. Create and activate a virtual environment (optional but recommended).
 
 ```
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/Scripts/activate  # On Windows: venv\Scripts\activate
 ```
 4. Install project dependencies.
 
@@ -70,7 +70,7 @@ http://localhost:5000
 ```
 Register an account and start managing your tasks.
 
-Enjoy using the "To-Do List Application"!
+Enjoy using the "basic-todo-app"!
 
 ## Project Idea
 
