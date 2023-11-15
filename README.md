@@ -1,5 +1,3 @@
-![image](https://github.com/DemisoDaba/to-do-list-app/assets/125874545/33f7aea1-2516-4dac-940d-a5f7f9741784)
-
 # basic-todo-app
 
 ## Overview
