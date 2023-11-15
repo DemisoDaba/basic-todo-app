@@ -12,12 +12,30 @@
     <div class="container">
         <h1>Taskify - Your To-Do App</h1>
 
+        <!-- Form for adding new tasks -->
         <form action="#" method="post">
-            <label for="task">New Task:</label>
+            <label for="task">Task Title:</label>
             <input type="text" id="task" name="task" required>
+
+            <!-- Additional fields for task description, due date, and priority -->
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="3"></textarea>
+
+            <label for="due-date">Due Date:</label>
+            <input type="date" id="due-date" name="due-date">
+
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+
+            <!-- Button to submit the form -->
             <button type="submit">Add Task</button>
         </form>
 
+        <!-- Task list -->
         <ul class="task-list">
             <!-- Task items will be dynamically added here using JavaScript -->
         </ul>
@@ -26,4 +44,3 @@
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
-
