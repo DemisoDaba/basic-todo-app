@@ -8,9 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
-        // Get the task input value
+        // Get task input values
         const taskInput = document.getElementById('task');
+        const descriptionInput = document.getElementById('description');
+        const dueDateInput = document.getElementById('dueDate');
+        const priorityInput = document.getElementById('priority');
+
         const taskText = taskInput.value.trim();
+        const descriptionText = descriptionInput.value.trim();
+        const dueDateText = dueDateInput.value;
+        const priorityText = priorityInput.value;
 
         // Check if the task text is not empty
         if (taskText !== '') {
@@ -20,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
             newTaskItem.classList.add('task-item');
             newTaskItem.innerHTML = `
                 <span>${taskText}</span>
+                <span>Description: ${descriptionText}</span>
+                <span>Due Date: ${dueDateText}</span>
+                <span>Priority: ${priorityText}</span>
                 <button>Edit</button>
                 <button>Delete</button>
             `;
@@ -29,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Clear the task input
             taskInput.value = '';
+            descriptionInput.value = '';
+            dueDateInput.value = '';
+            priorityInput.value = 'low'; // Set default priority
         }
     });
 
@@ -37,10 +50,23 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target.tagName === 'BUTTON' && event.target.textContent === 'Edit') {
             const taskItem = event.target.closest('.task-item');
             if (taskItem) {
+                // Implement logic for editing task details
                 const taskText = taskItem.querySelector('span').textContent;
+                const descriptionText = taskItem.querySelector('span:nth-child(2)').textContent;
+                const dueDateText = taskItem.querySelector('span:nth-child(3)').textContent;
+                const priorityText = taskItem.querySelector('span:nth-child(4)').textContent;
+
+                // Use prompt or modal for user input
                 const newTaskText = prompt('Edit Task:', taskText);
+                const newDescriptionText = prompt('Edit Description:', descriptionText);
+                const newDueDateText = prompt('Edit Due Date:', dueDateText);
+                const newPriorityText = prompt('Edit Priority:', priorityText);
+
                 if (newTaskText !== null) {
                     taskItem.querySelector('span').textContent = newTaskText;
+                    taskItem.querySelector('span:nth-child(2)').textContent = `Description: ${newDescriptionText}`;
+                    taskItem.querySelector('span:nth-child(3)').textContent = `Due Date: ${newDueDateText}`;
+                    taskItem.querySelector('span:nth-child(4)').textContent = `Priority: ${newPriorityText}`;
                 }
             }
         }
@@ -56,4 +82,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
