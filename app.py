@@ -1,62 +1,42 @@
 # app.py
 
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tasks.db'
-db = SQLAlchemy()
 
-class Task(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text)
-    due_date = db.Column(db.Date)
-    priority = db.Column(db.String(20))
-    completed = db.Column(db.Boolean, default=False)
+# Placeholder for tasks (you should replace this with a database)
+tasks = [{'id': 1, 'title': 'Example Task'}]
 
 @app.route('/')
 def index():
-    tasks = Task.query.all()
-    return render_template('index.html', tasks=tasks)
+    return render_template('index.html')
 
-@app.route('/add', methods=['POST'])
-def add_task():
-    title = request.form['title']
-    description = request.form['description']
-    due_date = request.form['due_date']
-    priority = request.form['priority']
+@app.route('/get_tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({'tasks': tasks})
 
-    task = Task(title=title, description=description, due_date=due_date, priority=priority, completed=False)
-    db.session.add(task)
-    db.session.commit()
+@app.route('/create_task', methods=['POST'])
+def create_task():
+    new_task_title = request.form.get('title')
+    new_task_id = len(tasks) + 1
+    new_task = {'id': new_task_id, 'title': new_task_title}
+    tasks.append(new_task)
+    return jsonify({'message': 'Task created successfully'})
 
-    return redirect(url_for('index'))
-
-@app.route('/edit/<int:task_id>', methods=['GET', 'POST'])
+@app.route('/edit_task/<int:task_id>', methods=['PUT'])
 def edit_task(task_id):
-    task = Task.query.get(task_id)
+    edited_task_title = request.form.get('title')
+    for task in tasks:
+        if task['id'] == task_id:
+            task['title'] = edited_task_title
+            return jsonify({'message': 'Task edited successfully'})
+    return jsonify({'error': 'Task not found'}), 404
 
-    if request.method == 'POST':
-        task.title = request.form['title']
-        task.description = request.form['description']
-        task.due_date = request.form['due_date']
-        task.priority = request.form['priority']
-        task.completed = 'completed' in request.form  # Adjust based on your form structure
-        db.session.commit()
-        return redirect(url_for('index'))
-
-    return render_template('edit.html', task=task)
-
-@app.route('/delete/<int:task_id>')
+@app.route('/delete_task/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    task = Task.query.get(task_id)
-    db.session.delete(task)
-    db.session.commit()
-    return redirect(url_for('index'))
+    global tasks
+    tasks = [task for task in tasks if task['id'] != task_id]
+    return jsonify({'message': 'Task deleted successfully'})
 
 if __name__ == '__main__':
-    db.init_app(app)
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
