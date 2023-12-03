@@ -18,21 +18,23 @@ body {
 
 h1 {
     color: #333;
-    text-align: center;
+}
+
+form {
     margin-bottom: 20px;
 }
 
-form label {
+label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-form input[type="text"],
-form textarea,
-form input[type="date"],
-form select {
-    width: calc(100% - 22px); /* Adjusted width considering the padding */
+input[type="text"],
+textarea,
+input[type="date"],
+select {
+    width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     box-sizing: border-box;
