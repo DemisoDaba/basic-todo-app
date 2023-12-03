@@ -32,15 +32,6 @@ def edit_task(task_id):
             return jsonify({'message': 'Task edited successfully'})
     return jsonify({'error': 'Task not found'}), 404
 
-@app.route('/complete_task/<int:task_id>', methods=['PUT'])
-def complete_task(task_id):
-    completed = request.json.get('completed')
-    for task in tasks:
-        if task['id'] == task_id:
-            task['completed'] = completed
-            return jsonify({'message': 'Task marked as completed'})
-    return jsonify({'error': 'Task not found'}), 404
-
 @app.route('/delete_task/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     global tasks
