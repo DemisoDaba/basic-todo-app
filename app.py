@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-# Placeholder for tasks (you should replace this with a database)
+# Placeholder for tasks I will replace this with database
 tasks = [{'id': 1, 'title': 'Example Task'}]
 
 @app.route('/')
