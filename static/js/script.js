@@ -1,7 +1,7 @@
 /* static/js/script.js */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // DOMContentLoaded ensures that the script runs after the HTML has been completely loaded
+    // To run after the HTML has been completely loaded
 
     // Function to fetch tasks from the backend and update the task list
     function fetchTasks() {
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch tasks when the page loads
     fetchTasks();
 
-    // Example: Add a task when the form is submitted
+    // Add a task when the form is submitted
     const form = document.querySelector('form');
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Example: Edit a task when the edit button is clicked
+    // Edit a task when the edit button is clicked
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('edit-btn')) {
             const taskId = event.target.dataset.id;
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Example: Delete a task when the delete button is clicked
+    // Delete a task when the delete button is clicked
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('delete-btn')) {
             const taskId = event.target.dataset.id;
